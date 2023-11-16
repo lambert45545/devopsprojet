@@ -4,12 +4,12 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('lambertahmed-dockerhub')
+    DOCKERHUB_CREDENTIALS = credentials('darinpope-dockerhub')
   }
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t ahmed/dp-alpine:latest .'
+        sh 'docker build -t darinpope/dp-alpine:latest .'
       }
     }
     stage('Login') {
@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push ahmed/dp-alpine:latest'
+        sh 'docker push darinpope/dp-alpine:latest'
       }
     }
   }
