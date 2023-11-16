@@ -1,20 +1,31 @@
 pipeline {
-    agent any
-    stages {
-        stage("build") {
-            steps {
-                echo 'building the application'
-            }
-        }
-        stage("test") {
-            steps {
-                echo 'testing the application'
-            }
-        }
-        stage("deploy") {
-            steps {
-                echo 'deploy the application'
-            }
-        }
+  agent { label 'linux' }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('lambertahmed-dockerhub')
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'docker build -t lambertahmed/dp-alpine:latest .'
+      }
     }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'docker push lambertahmed/dp-alpine:latest'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker logout'
+    }
+  }
 }
