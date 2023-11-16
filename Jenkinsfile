@@ -1,10 +1,10 @@
 pipeline {
-  agent any
+  agent { label 'linux' }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('darinpope-dockerhub')
+    DOCKERHUB_CREDENTIALS = credentials('ahmed')
   }
   stages {
     stage('Build') {
@@ -14,14 +14,7 @@ pipeline {
     }
     stage('Login') {
       steps {
-        script {
-          echo "DOCKERHUB_USERNAME: \$DOCKERHUB_USERNAME"
-          echo "DOCKERHUB_PASSWORD: \$DOCKERHUB_PASSWORD"
-          
-          withCredentials([usernamePassword(credentialsId: 'darinpope-dockerhub', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-            sh "echo \$DOCKERHUB_PASSWORD | docker login -u \$DOCKERHUB_USERNAME --password-stdin"
-          }
-        }
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
       }
     }
     stage('Push') {
