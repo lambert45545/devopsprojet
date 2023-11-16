@@ -8,8 +8,8 @@ pipeline {
   }
   stages {
     stage('Build') {
-      steps {
-        sh 'docker build -t lambertahmed/dp-alpine:latest .'
+      steps {a
+        sh 'docker build -t ahmed/dp-alpine:latest .'
       }
     }
     stage('Login') {
@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push lambertahmed/dp-alpine:latest'
+        sh 'docker push ahmed/dp-alpine:latest'
       }
     }
   }
