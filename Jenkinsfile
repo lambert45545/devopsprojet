@@ -8,7 +8,7 @@ pipeline {
   }
   stages {
     stage('Build') {
-      steps {a
+      steps {
         sh 'docker build -t ahmed/dp-alpine:latest .'
       }
     }
