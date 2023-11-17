@@ -1,1 +1,2 @@
-FROM alpine:3.13.5
+FROM httpd:bookworm
+COPY . /usr/local/apache2/htdocs/
