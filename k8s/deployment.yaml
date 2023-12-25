@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dp-alpine-deployment
+spec:
+  replicas: 5  
+  selector:
+    matchLabels:
+      app: dp-alpine
+  template:
+    metadata:
+      labels:
+        app: dp-alpine
+    spec:
+      containers:
+      - name: dp-alpine
+        image: lambertahmed/dp-alpine:latest
+        ports:
+        - containerPort: 80  
