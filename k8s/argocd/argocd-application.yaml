@@ -9,7 +9,7 @@ spec:
     namespace: default
   project: default
   source:
-    repoURL: 'https://github.com/lambert45545/devopsprojet.git'
+    repoURL: 'https://github.com/lambert45545/devopsprojet.git
     path: k8s
     targetRevision: HEAD
   syncPolicy:
