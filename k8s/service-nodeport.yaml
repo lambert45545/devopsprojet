@@ -1,1 +1,12 @@
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: dp-alpine-nodeport
+spec:
+  selector:
+    app: dp-alpine
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
